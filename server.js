@@ -110,12 +110,13 @@ async function handleWebhookEvent(body) {
   }
 
   console.log('[webhook] Entry keys:', Object.keys(entry));
-  if (entry.changes) console.log('[webhook] changes[0]:', JSON.stringify(entry.changes[0], null, 2));
+  //if (entry.changes) console.log('[webhook] changes[0]:', JSON.stringify(entry.changes[0], null, 2));
   if (entry.messaging) console.log('[webhook] messaging[0]:', JSON.stringify(entry.messaging[0], null, 2));
 
   let senderId, messageText, messageId, attachment;
 
   // Instagram Graph API delivers events via entry[].changes[]
+  /*
   const change = entry.changes?.[0];
   if (change?.value) {
     const value = change.value;
@@ -124,10 +125,9 @@ async function handleWebhookEvent(body) {
     messageId = value.message?.mid;
     const attachments = value.message?.attachments;
     attachment = attachments?.[0] || null;
-  }
+  }*/
 
   // Fallback: Messenger-style entry[].messaging[] (legacy)
-  if (!senderId) {
     const messaging = entry.messaging?.[0];
     if (messaging) {
       senderId = messaging.sender?.id;
@@ -136,7 +136,6 @@ async function handleWebhookEvent(body) {
       const attachments = messaging.message?.attachments;
       attachment = attachments?.[0] || null;
     }
-  }
 
   if (!senderId) {
     console.warn('[webhook] No sender ID in event');
@@ -149,11 +148,12 @@ async function handleWebhookEvent(body) {
 async function processMessage(senderId, messageText, attachment, messageId) {
   // 1. Check whitelist
   if (!isWhitelisted(senderId)) {
+    /*
     await sendNotification({
       title: 'Unknown sender',
       body: `Someone not on your list messaged you (ID: ${senderId})`,
       priority: 'default',
-    });
+    });*/
     return;
   }
 
