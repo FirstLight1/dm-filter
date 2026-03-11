@@ -1,3 +1,5 @@
+## This was entirely vibecoded, because I wanted to play around with AI, it was an expirience. Use at your own risk
+
 # Instagram DM Filter
 
 A Node.js server that automatically filters incoming Instagram DMs and Reel shares. It classifies content using the Claude API and takes action based on the classification:
